@@ -238,9 +238,14 @@ ex:
 
 (defvar helm-windows-search-query-sql-map
   `(
+    ;; https://docs.microsoft.com/ja-jp/windows/desktop/lwef/-search-2x-wds-aqsreference#properties-by-file-kind
     ;; ( regexp sql-generator )
-    ("^author:\\([^ ]+\\)" (lambda (word) (format "(System.Author = '%s')" (helm-windows-search-escape-single-quote (match-string 1 word)))))
-    ("^title:\\([^ ]+\\)" (lambda (word) (format "(System.Title Like '%%%s%%')" (helm-windows-search-escape-single-quote (match-string 1 word)))))
+    ("^\\(filename\\|file\\):\\(.+\\)" (lambda (word) (format "(System.FileName Like '%%%s%%')" (helm-windows-search-escape-single-quote (match-string 2 word)))))
+    ("^\\(fileext\\|ext\\):\\.?\\(.+\\)" (lambda (word) (format "(System.FileExtension = '.%s')" (helm-windows-search-escape-single-quote (match-string 2 word)))))
+    ("^kind:\\(.+\\)" (lambda (word) (format "(System.Kind = '%s')" (helm-windows-search-escape-single-quote (match-string 1 word))))) ;;https://docs.microsoft.com/ja-jp/windows/desktop/properties/props-system-kind
+    ("^author:\\(.+\\)" (lambda (word) (format "(System.Author = '%s')" (helm-windows-search-escape-single-quote (match-string 1 word)))))
+    ("^title:\\(.+\\)" (lambda (word) (format "(System.Title Like '%%%s%%')" (helm-windows-search-escape-single-quote (match-string 1 word)))))
+    ("^contents:\\(.+\\)" (lambda (word) (format "FREETEXT('%s')" (helm-windows-search-escape-single-quote (match-string 1 word)))))
     ("^size:\\(<\\|<=\\|=\\|>\\|>=\\|!=\\)?\\([0-9]+\\)" (lambda (word) (format "(System.Size %s %s)" (or (match-string 1 word) "=") (match-string 2 word))))
     (,helm-windows-search-query-date-regexp
      (lambda (word)

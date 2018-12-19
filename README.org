@@ -22,7 +22,7 @@ M-x helm-windows-search or C-c h w
 
 ** Example Queries
 
-filename or contents
+filepath or filename or contents
 
 - hello
 - apple orange banana
@@ -37,6 +37,23 @@ author
 title
 
 - title:hello
+
+filename or file
+
+- filename:main.cpp
+- file:hello.cpp
+
+file extension
+
+- ext:mp3
+- ext:.mp3
+- fileext:mp3
+
+kind
+
+- kind:folder
+- kind:music
+(see: [[https://docs.microsoft.com/ja-jp/windows/desktop/properties/props-system-kind][System.Kind | Microsoft Docs]] )
 
 size
 
@@ -53,3 +70,7 @@ date
 - date:2018-12-1..2019-1-3
 - date:2018-12..today
 - date:>=2010 date:<2011
+
+contents
+
+- contents:hello\ world

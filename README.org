@@ -1,0 +1,55 @@
+* Helm Windows Search
+** Introduction
+
+Helm Windows Search is an interface for accessing [[https://docs.microsoft.com/en-us/windows/desktop/search/windows-search][Windows Desktop Search]] from [[https://github.com/emacs-helm/helm][Emacs-Helm]].
+
+** Install
+
+1. Put helm-windows-search.el and adoquery.exe into your load path.
+
+   (adoquery.exe is a simple ADO access wrapper. see:[[https://github.com/misohena/adoquery]])
+
+2. Put the following code in your init.el file.
+
+   #+BEGIN_SRC emacs-lisp
+(autoload 'helm-windows-search "helm-windows-search")
+(global-set-key (kbd "C-c h w") 'helm-windows-search)
+#+END_SRC
+
+** Usage
+
+M-x helm-windows-search or C-c h w
+
+** Example Queries
+
+filename or contents
+
+- hello
+- apple orange banana
+- "hello world"
+- CreateWindow
+
+author
+
+- author:misohena
+- author:Jhon\ Smith
+
+title
+
+- title:hello
+
+size
+
+- size:>=1000000000
+- size:<100000
+
+date
+
+- date:today
+- date:2018-12-20
+- date:2018-12
+- date:2018
+- date:=2018-12-20
+- date:2018-12-1..2019-1-3
+- date:2018-12..today
+- date:>=2010 date:<2011

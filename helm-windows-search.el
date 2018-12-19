@@ -256,6 +256,8 @@ ex:
           "("
           "(System.FileName Like '%" (helm-windows-search-escape-single-quote (helm-windows-search-escape-like word)) "%')"
           " OR "
+          "(System.ItemFolderPathDisplay Like '%" (helm-windows-search-escape-single-quote (helm-windows-search-escape-like word)) "%')"
+          " OR "
           "FREETEXT('" (helm-windows-search-escape-single-quote word) "')"
           ")")))))
 

@@ -16,6 +16,21 @@ Helm Windows Search is an interface for accessing [[https://docs.microsoft.com/e
 (global-set-key (kbd "C-c h w") 'helm-windows-search)
 #+END_SRC
 
+In helm-locate, if you want to use Windows Search instead of es.exe, follow these steps:
+
+3. Put helm-locate-windows-search.el and adoquery.exe into your load path.
+
+4. Put the following code in your init.el file.
+
+   #+BEGIN_SRC emacs-lisp
+(autoload 'helm-locate-windows-search-setup "helm-locate-windows-search")
+(with-eval-after-load "helm-locate" (helm-locate-windows-search-setup))
+#+END_SRC
+
+  Then override helm-locate-init function.
+
+In helm-locate function, you can only use locate command format. (ex: -b \NAME)
+
 ** Usage
 
 M-x helm-windows-search or C-c h w

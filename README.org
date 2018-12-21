@@ -16,20 +16,31 @@ Helm Windows Search is an interface for accessing [[https://docs.microsoft.com/e
 (global-set-key (kbd "C-c h w") 'helm-windows-search)
 #+END_SRC
 
-In helm-locate, if you want to use Windows Search instead of es.exe, follow these steps:
+If you want to use Windows Search instead of es.exe in *helm-locate*, follow these steps:
 
-3. Put helm-locate-windows-search.el and adoquery.exe into your load path.
+1. Put helm-locate-windows-search.el and adoquery.exe into your load path.
 
-4. Put the following code in your init.el file.
+2. Put the following code in your init.el file.
 
    #+BEGIN_SRC emacs-lisp
 (autoload 'helm-locate-windows-search-setup "helm-locate-windows-search")
 (with-eval-after-load "helm-locate" (helm-locate-windows-search-setup))
 #+END_SRC
 
-  Then override helm-locate-init function.
+Then helm-locate-init function is overwritten and locate command is emulated by Windows Search.
+In helm-locate, you can only use locate command format. (ex: ~-b \NAME~)
 
-In helm-locate function, you can only use locate command format. (ex: -b \NAME)
+If you want to completely replace helm-locate-1 with helm-windows-search-1, you can use the following code instead.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load "helm-locate"
+  (fset 'helm-locate-1
+        (lambda (&optional localdb init from-ff default)
+          (require 'helm-windows-search)
+          (helm-windows-search-1 init default)))
+#+END_SRC
+
+You can use helm-windows-search query. (ex: ~file:main date:today author:misohena~ )
 
 ** Usage
 
@@ -56,7 +67,7 @@ title
 filename or file
 
 - filename:main.cpp
-- file:hello.cpp
+- ~file:hello.cpp~
 
 file extension
 
